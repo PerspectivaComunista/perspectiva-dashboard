@@ -8,14 +8,6 @@ type Breadcrumb = {
 
 const dictionary: Record<string, string> = {
   "/": "Perspectiva Dashboard",
-  "/admins": "Administratori",
-  "/notifications": "Notificari",
-  "/doctors": "Doctori",
-  "/pharmacies": "Farmacii",
-  "/agents": "Agenti",
-  "/managers": "Manageri",
-  "/objectives": "Obiective",
-  "/offers": "Produsele lunii",
 };
 
 function useBreadcrumbs() {
