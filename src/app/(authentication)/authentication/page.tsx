@@ -6,7 +6,7 @@ import { signInAction } from "./actions";
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { firebaseAuth } from "@/lib/firebase/client";
-import PrimaryFormButton from "../../../components/shared/PrimaryFormButton";
+import PrimaryFormButton from "@/components/shared/PrimaryFormButton";
 import { Card } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -89,7 +89,14 @@ export default function Page() {
         shadow="lg"
         className="w-full px-10 sm:px-20 flex items-center h-screen sm:h-auto"
       >
-        <Image src="/logo.png" alt="logo" width={270} height={270} priority />
+        <Image
+          src="/logo.png"
+          alt="logo"
+          width={270}
+          height={270}
+          priority
+          className="mt-8"
+        />
         <form
           action={signIn}
           className="flex flex-col gap-4 mt-10 h-full w-full justify-center"
