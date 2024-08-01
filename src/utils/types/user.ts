@@ -1,12 +1,7 @@
-type User = {
-  id: string;
+interface User {
   email: string;
-  firstName: string;
-  lastName: string;
-  createdAt: string;
-  role: string;
-  notificationToken: string | null;
-  agentIds: string[] | null;
-};
+  id: string;
+  nume: string;
+}
 
 export default User;

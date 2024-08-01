@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroicons/react": "^2.1.5",
     "@iconify/react": "^5.0.2",
     "@internationalized/date": "^3.5.4",
     "@nextui-org/react": "^2.3.6",

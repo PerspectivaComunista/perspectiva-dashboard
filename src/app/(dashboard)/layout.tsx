@@ -50,13 +50,9 @@ export default function RootLayout({
         )}
       >
         <div
-          className={cn(
-            "flex items-center gap-3 px-3",
-
-            {
-              "justify-center gap-0": isCompact,
-            }
-          )}
+          className={cn("flex items-center gap-3 px-3", {
+            "justify-center gap-0": isCompact,
+          })}
         >
           <div className="flex h-14 w-14 items-center justify-center rounded-full bg-foreground">
             <Image
