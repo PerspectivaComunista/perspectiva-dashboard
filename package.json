@@ -11,7 +11,6 @@
   "dependencies": {
     "@heroicons/react": "^2.1.5",
     "@iconify/react": "^5.0.2",
-    "@internationalized/date": "^3.5.5",
     "@nextui-org/react": "^2.4.6",
     "clsx": "^2.1.1",
     "firebase": "^10.12.5",
@@ -22,7 +21,6 @@
     "react-dom": "^18.3.1",
     "sonner": "^1.5.0",
     "tailwind-merge": "^2.4.0",
-    "tmp-promise": "^3.0.3",
     "usehooks-ts": "^3.1.0"
   },
   "devDependencies": {

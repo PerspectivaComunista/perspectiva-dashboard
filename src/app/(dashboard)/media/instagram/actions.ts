@@ -1,7 +1,6 @@
 "use server";
 
 import uploadFileToStorage from "@/utils/functions/uploadFileToStorage";
-import Instagram from "@/utils/types/instagram";
 
 async function updateInstagramPostAction({
   data,
