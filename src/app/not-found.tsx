@@ -1,12 +1,11 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import Logo from "@/assets/logo-round.png";
 
 export const metadata: Metadata = {
   title: "Pagina nu a fos gasita...",
 };
-
-const Logo = require("@/assets/logo-round.png");
 
 export default function NotFound() {
   return (
