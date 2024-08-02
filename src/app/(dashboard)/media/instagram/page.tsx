@@ -1,6 +1,4 @@
 const { getFirestore } = require("firebase-admin/firestore");
-import Image from "next/image";
-import Link from "next/link";
 import Pagination from "@/components/shared/Pagination";
 import { firebaseServerApp } from "@/lib/firebase/server";
 import { CreateInstagramButton } from "@/components/dashboard/instagram/CreateInstagramButton";
@@ -22,7 +20,7 @@ const getInstagramPosts = async (): Promise<Instagram[]> => {
   return objectives;
 };
 
-export default async function page({
+export default async function Page({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };

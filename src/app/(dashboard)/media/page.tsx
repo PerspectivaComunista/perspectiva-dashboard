@@ -6,7 +6,7 @@ import Instagram from "@/assets/instagram.png";
 import Tiktok from "@/assets/tiktok.png";
 import Youtube from "@/assets/youtube.png";
 
-export default function page() {
+export default function Page() {
   return (
     <main className="max-w-screen-xl mx-auto p-3 mb-10">
       <div className="text-center my-10">
