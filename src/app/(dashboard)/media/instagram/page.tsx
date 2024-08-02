@@ -1,4 +1,3 @@
-const { getFirestore } = require("firebase-admin/firestore");
 import Pagination from "@/components/shared/Pagination";
 import { firebaseServerApp } from "@/lib/firebase/server";
 import { CreateInstagramButton } from "@/components/dashboard/instagram/CreateInstagramButton";
@@ -12,6 +11,7 @@ interface Instagram {
 }
 
 const getInstagramPosts = async (): Promise<Instagram[]> => {
+  const { getFirestore } = require("firebase-admin/firestore");
   const db = getFirestore(firebaseServerApp);
   const response = await db.collection("instagram").get();
   const objectives = response.docs.map((doc: any) => doc.data()) as Instagram[];
