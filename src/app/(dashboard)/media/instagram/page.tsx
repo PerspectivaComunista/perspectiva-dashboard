@@ -45,7 +45,7 @@ export default async function Page({
 
       <div className="sm:grid flex flex-col lg:grid-cols-4 md:grid-cols-3 w-full sm:grid-cols-2 gap-4 justify-items-center justify-between items-center mb-20">
         {entries.map((post: Instagram) => (
-          <EditInstagramPostButton instagram={post} />
+          <EditInstagramPostButton instagram={post} key={post.id} />
         ))}
       </div>
       {posts.length > 12 && (
