@@ -12,38 +12,35 @@ import {
 import { DatePicker, Input } from "@nextui-org/react";
 import PrimaryFormButton from "@/components/shared/PrimaryFormButton";
 import { toast } from "sonner";
-import { updateInstagramPostAction } from "@/app/(dashboard)/media/instagram/actions";
+import { updateYoutubeAction } from "@/app/(dashboard)/media/youtube/actions";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import Post from "@/utils/types/post";
 import Link from "next/link";
 import Image from "next/image";
-import { DeleteInstagramButton } from "./DeleteInstagramButton";
+import { DeleteYoutubeButton } from "./DeleteYoutubeButton";
+import Post from "@/utils/types/post";
 
-export function EditInstagramPostButton({ instagram }: { instagram: Post }) {
+export function EditYoutubeButton({ youtube }: { youtube: Post }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const router = useRouter();
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [deletedInstagram, setDeletedInstagram] = useState(false);
+  const [deletedYoutube, setDeletedYoutube] = useState(false);
 
-  const editInstagramPost = async (
-    formData: FormData,
-    closeModal: () => void
-  ) => {
-    if (deletedInstagram) {
+  const editYoutube = async (formData: FormData, closeModal: () => void) => {
+    if (deletedYoutube) {
       closeModal();
-      setDeletedInstagram(false);
+      setDeletedYoutube(false);
     }
     if (imageFile) {
       formData.append("image", imageFile);
     } else {
-      formData.append("imageUrl", instagram.imageUrl);
+      formData.append("imageUrl", youtube.imageUrl);
     }
 
     try {
-      await updateInstagramPostAction({
-        id: instagram.id,
-        createdAt: instagram.createdAt,
+      await updateYoutubeAction({
+        id: youtube.id,
+        createdAt: youtube.createdAt,
         data: formData,
       });
 
@@ -65,7 +62,7 @@ export function EditInstagramPostButton({ instagram }: { instagram: Post }) {
         className="shadow-xl relative group overflow-hidden"
       >
         <Image
-          src={instagram.imageUrl}
+          src={youtube.imageUrl}
           width={300}
           height={300}
           className="w-full object-contain"
@@ -89,11 +86,11 @@ export function EditInstagramPostButton({ instagram }: { instagram: Post }) {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Editează instagram post
+                Editează youtube post
               </ModalHeader>
               <ModalBody>
                 <form
-                  action={(event) => editInstagramPost(event, onClose)}
+                  action={(event) => editYoutube(event, onClose)}
                   className="flex flex-col gap-4 mb-5 h-full w-full justify-center"
                 >
                   <Input
@@ -102,11 +99,11 @@ export function EditInstagramPostButton({ instagram }: { instagram: Post }) {
                     autoFocus
                     name="url"
                     label="Url-ul postarii"
-                    placeholder="https://www.instagram.com/p/..."
+                    placeholder="https://www.youtube.com/p/..."
                     required
                     isRequired
                     type="text"
-                    defaultValue={instagram.url}
+                    defaultValue={youtube.url}
                   />
 
                   <div className="w-full">
@@ -134,10 +131,10 @@ export function EditInstagramPostButton({ instagram }: { instagram: Post }) {
                           src={URL.createObjectURL(imageFile!)}
                           className="w-full h-full object-contain rounded-lg"
                         />
-                      ) : instagram.imageUrl ? (
+                      ) : youtube.imageUrl ? (
                         <img
                           alt="Cover image"
-                          src={instagram.imageUrl}
+                          src={youtube.imageUrl}
                           className="w-full h-full object-contain rounded-lg"
                         />
                       ) : (
@@ -149,9 +146,9 @@ export function EditInstagramPostButton({ instagram }: { instagram: Post }) {
                   </div>
 
                   <PrimaryFormButton label="Editează" />
-                  <DeleteInstagramButton
-                    instagram={instagram}
-                    setDeletedInstagram={setDeletedInstagram}
+                  <DeleteYoutubeButton
+                    youtube={youtube}
+                    setDeletedYoutube={setDeletedYoutube}
                   />
                 </form>
               </ModalBody>

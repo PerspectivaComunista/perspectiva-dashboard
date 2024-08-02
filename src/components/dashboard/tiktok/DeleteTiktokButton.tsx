@@ -11,25 +11,25 @@ import {
 } from "@nextui-org/modal";
 import PrimaryFormButton from "@/components/shared/PrimaryFormButton";
 import { toast } from "sonner";
-import { deleteInstagramPostAction } from "@/app/(dashboard)/media/instagram/actions";
+import { deleteTiktokAction } from "@/app/(dashboard)/media/tiktok/actions";
 import { useRouter } from "next/navigation";
 import Post from "@/utils/types/post";
 
-export function DeleteInstagramButton({
-  instagram,
-  setDeletedInstagram,
+export function DeleteTiktokButton({
+  tiktok,
+  setDeletedTiktok,
 }: {
-  instagram: Post;
-  setDeletedInstagram: (deleted: boolean) => void;
+  tiktok: Post;
+  setDeletedTiktok: (deleted: boolean) => void;
 }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const router = useRouter();
 
   const deleteOffer = async (closeModal: () => void) => {
     try {
-      await deleteInstagramPostAction({ id: instagram.id });
+      await deleteTiktokAction({ id: tiktok.id });
       closeModal();
-      setDeletedInstagram(true);
+      setDeletedTiktok(true);
       router.refresh();
       toast.success("Postarea a fost ștearsă cu succes.");
     } catch (e) {

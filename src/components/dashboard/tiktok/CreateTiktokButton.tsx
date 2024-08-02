@@ -1,57 +1,35 @@
 "use client";
-
 import { Button } from "@nextui-org/button";
 import { useDisclosure } from "@nextui-org/use-disclosure";
-import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-} from "@nextui-org/modal";
-import { DatePicker, Input } from "@nextui-org/react";
+import { Modal, ModalContent, ModalHeader, ModalBody } from "@nextui-org/modal";
+import { Input } from "@nextui-org/react";
 import PrimaryFormButton from "@/components/shared/PrimaryFormButton";
 import { toast } from "sonner";
-import { updateInstagramPostAction } from "@/app/(dashboard)/media/instagram/actions";
+import { createTiktokAction } from "@/app/(dashboard)/media/tiktok/actions";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import Post from "@/utils/types/post";
-import Link from "next/link";
-import Image from "next/image";
-import { DeleteInstagramButton } from "./DeleteInstagramButton";
+import { useEffect, useState } from "react";
 
-export function EditInstagramPostButton({ instagram }: { instagram: Post }) {
+export function CreateTiktokButton() {
+  const [imageFile, setImageFile] = useState<File | null>(null);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const router = useRouter();
-  const [imageFile, setImageFile] = useState<File | null>(null);
-  const [deletedInstagram, setDeletedInstagram] = useState(false);
 
-  const editInstagramPost = async (
-    formData: FormData,
-    closeModal: () => void
-  ) => {
-    if (deletedInstagram) {
-      closeModal();
-      setDeletedInstagram(false);
+  const createTiktok = async (formData: FormData, closeModal: () => void) => {
+    if (!imageFile) {
+      toast.error("Te rugam sa adaugi o imagine.");
+      return;
     }
-    if (imageFile) {
-      formData.append("image", imageFile);
-    } else {
-      formData.append("imageUrl", instagram.imageUrl);
-    }
+
+    formData.append("image", imageFile);
 
     try {
-      await updateInstagramPostAction({
-        id: instagram.id,
-        createdAt: instagram.createdAt,
+      await createTiktokAction({
         data: formData,
       });
-
       closeModal();
-
       setImageFile(null);
       router.refresh();
-      toast.success("Promoția a fost editată cu succes.");
+      toast.success("Promoția a fost creată cu succes.");
     } catch (e) {
       console.log(e);
       toast.error("Am întâmpinat o eroare. Te rugăm să încerci mai târziu.");
@@ -60,23 +38,15 @@ export function EditInstagramPostButton({ instagram }: { instagram: Post }) {
 
   return (
     <>
-      <button
-        onClick={onOpen}
-        className="shadow-xl relative group overflow-hidden"
+      <Button
+        onPress={onOpen}
+        variant="flat"
+        size="md"
+        color="success"
+        radius="sm"
       >
-        <Image
-          src={instagram.imageUrl}
-          width={300}
-          height={300}
-          className="w-full object-contain"
-          alt={"posts"}
-          priority
-        />
-        <p className="text-white bg-red text-lg absolute bottom-0 py-1 pl-4 w-full transition-all duration-1000 ease-in-out transform -translate-x-full group-hover:translate-x-0">
-          Vezi postarea &gt;&gt; &gt;
-        </p>
-      </button>
-
+        Creeaza
+      </Button>
       <Modal
         placement="top-center"
         size="3xl"
@@ -89,11 +59,11 @@ export function EditInstagramPostButton({ instagram }: { instagram: Post }) {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Editează instagram post
+                Creeaza o postare Tiktok
               </ModalHeader>
               <ModalBody>
                 <form
-                  action={(event) => editInstagramPost(event, onClose)}
+                  action={(event) => createTiktok(event, onClose)}
                   className="flex flex-col gap-4 mb-5 h-full w-full justify-center"
                 >
                   <Input
@@ -102,11 +72,10 @@ export function EditInstagramPostButton({ instagram }: { instagram: Post }) {
                     autoFocus
                     name="url"
                     label="Url-ul postarii"
-                    placeholder="https://www.instagram.com/p/..."
+                    placeholder="https://www.tiktok.com/p/..."
                     required
                     isRequired
                     type="text"
-                    defaultValue={instagram.url}
                   />
 
                   <div className="w-full">
@@ -134,25 +103,15 @@ export function EditInstagramPostButton({ instagram }: { instagram: Post }) {
                           src={URL.createObjectURL(imageFile!)}
                           className="w-full h-full object-contain rounded-lg"
                         />
-                      ) : instagram.imageUrl ? (
-                        <img
-                          alt="Cover image"
-                          src={instagram.imageUrl}
-                          className="w-full h-full object-contain rounded-lg"
-                        />
                       ) : (
                         <span className="mt-2 block text-sm font-semibold text-gray-900">
-                          Selectează o imagine
+                          Adaugă o imagine
                         </span>
                       )}
                     </button>
                   </div>
 
-                  <PrimaryFormButton label="Editează" />
-                  <DeleteInstagramButton
-                    instagram={instagram}
-                    setDeletedInstagram={setDeletedInstagram}
-                  />
+                  <PrimaryFormButton label="Creează" />
                 </form>
               </ModalBody>
             </>
