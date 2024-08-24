@@ -26,7 +26,7 @@ export async function signInAction(token: string) {
       expiresIn: 60 * 60 * 24 * 7 * 1000, // 7 days
     });
 
-    cookies().set("__session", sessionCookie, {
+    cookies().set("__sessionPerspectiva", sessionCookie, {
       path: "/",
     });
 
@@ -53,6 +53,6 @@ export async function resetPasswordAction(email: string) {
 }
 
 export async function signOutAction() {
-  cookies().delete("__session");
+  cookies().delete("__sessionPerspectiva");
   return { message: "Sign outsuccess", status: 200 };
 }
