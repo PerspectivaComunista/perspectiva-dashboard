@@ -39,11 +39,12 @@ export default function RootLayout({
     await signOutAction();
     router.replace("/");
   };
+
   return (
     <div className="flex h-full w-full">
       <div
         className={cn(
-          "relative flex h-screen w-72 flex-col !border-r-small border-divider p-6 transition-width",
+          "relative sm:flex hidden h-screen w-72 flex-col !border-r-small border-divider p-6 transition-width",
           {
             "w-16 items-center px-2 py-6": isCompact,
           }
@@ -54,7 +55,7 @@ export default function RootLayout({
             "justify-center gap-0": isCompact,
           })}
         >
-          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-foreground">
+          <div className="flex sm:h-14 sm:w-14 h-8 w-8 items-center justify-center rounded-full bg-foreground">
             <Image
               className="text-background"
               src="/logo.png"
