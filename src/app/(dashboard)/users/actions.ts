@@ -56,7 +56,6 @@ async function createUserAction({
     created_at: FieldValue.serverTimestamp(),
     id: user.uid,
   });
-  await sendPasswordResetEmail(auth, email);
 }
 
 async function deleteUserAction({ id }: { id: string }) {
