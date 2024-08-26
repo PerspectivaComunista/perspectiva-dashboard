@@ -1,6 +1,5 @@
 import DashboardCard from "@/components/dashboard/DashboardCard";
 import { Suspense } from "react";
-import UsersWidget from "@/components/dashboard/widgets/UsersWidget";
 import InstagramsWidget from "@/components/dashboard/widgets/InstagramsWidget";
 import TiktokWidget from "@/components/dashboard/widgets/TiktokWidget";
 import YoutubeWidget from "@/components/dashboard/widgets/YoutubeWidget";
@@ -8,9 +7,6 @@ import YoutubeWidget from "@/components/dashboard/widgets/YoutubeWidget";
 export default async function Page() {
   return (
     <div className="my-[40px] max-w-[1000px] mx-auto flex flex-wrap gap-[20px] justify-center animate-appearance-in">
-      {/* <Suspense fallback={<DashboardCard large isLoading />}>
-        <UsersWidget />
-      </Suspense> */}
       <Suspense fallback={<DashboardCard isLoading />}>
         <InstagramsWidget />
       </Suspense>
