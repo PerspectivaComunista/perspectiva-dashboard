@@ -12,21 +12,23 @@ export async function signInAction(token: string) {
   try {
     const decodedToken = await auth.verifyIdToken(token);
     let uid = decodedToken.uid;
-    const userRef = firestore.collection("users").doc(uid);
-    const user = await userRef.get();
 
-    if (!user.exists) {
-      return {
-        message: "Utilizatorul nu are drepturi administrative.",
-        status: 401,
-      };
-    }
+    // const adminRef = firestore.collection('administrators').doc(uid);
+
+    // const admin = await adminRef.get();
+
+    // if (!admin.exists) {
+    // 	return {
+    // 		message: 'Utilizatorul nu are drepturi administrative.',
+    // 		status: 401,
+    // 	};
+    // }
 
     const sessionCookie = await auth.createSessionCookie(token, {
       expiresIn: 60 * 60 * 24 * 7 * 1000, // 7 days
     });
 
-    cookies().set("__sessionPerspectiva", sessionCookie, {
+    cookies().set("__sessionPerspectivaDashboard", sessionCookie, {
       path: "/",
     });
 
@@ -40,19 +42,7 @@ export async function signInAction(token: string) {
   }
 }
 
-export async function resetPasswordAction(email: string) {
-  const auth = getAuth(firebaseServerApp);
-
-  try {
-    await auth.sendPasswordResetEmail(email);
-  } catch (error) {
-    return { message: "Unable to send password reset email", status: 401 };
-  }
-
-  return { message: "Reset password success", status: 200 };
-}
-
 export async function signOutAction() {
-  cookies().delete("__sessionPerspectiva");
+  cookies().delete("__sessionPerspectivaDashboard");
   return { message: "Sign outsuccess", status: 200 };
 }

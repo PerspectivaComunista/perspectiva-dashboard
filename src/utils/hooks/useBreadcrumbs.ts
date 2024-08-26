@@ -7,7 +7,10 @@ type Breadcrumb = {
 };
 
 const dictionary: Record<string, string> = {
-  "/": "Perspectiva Dashboard",
+  "/": "Perspectiva Comunistă",
+  "/admins": "Administratori",
+  "/users": "Utilizatori",
+  "/instagrams": "Locații",
 };
 
 function useBreadcrumbs() {

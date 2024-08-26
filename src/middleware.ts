@@ -3,12 +3,12 @@ import { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
   if (request.nextUrl.pathname.includes("/authentication")) {
-    let sessionCookie = request.cookies.get("__sessionPerspectiva");
+    let sessionCookie = request.cookies.get("__sessionPerspectivaDashboard");
     if (sessionCookie) return NextResponse.redirect(new URL("/", request.url));
 
     return NextResponse.next();
   } else {
-    let sessionCookie = request.cookies.get("__sessionPerspectiva");
+    let sessionCookie = request.cookies.get("__sessionPerspectivaDashboard");
     if (!sessionCookie)
       return NextResponse.redirect(new URL("/authentication", request.url));
 

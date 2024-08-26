@@ -3,7 +3,7 @@ const uploadFileToStorage = async (
   bucket: any,
   categoryName: string
 ): Promise<string | null> => {
-  const file = bucket.file(`${categoryName}/${coverImage.name}`);
+  const file = bucket.file(`instagrams/${categoryName}/${coverImage.name}`);
   const fileStream = file.createWriteStream();
 
   return new Promise(async (resolve, reject) => {

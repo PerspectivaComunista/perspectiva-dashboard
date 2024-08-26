@@ -1,9 +1,15 @@
+import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { Providers } from "./providers";
 import "../assets/globals.css";
 import { Toaster } from "sonner";
 
 const inter = Poppins({ weight: "400", subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "Perspectiva Comunistă",
+  description: "Perspectiva Comunistă - Web App",
+};
 
 export default function RootLayout({
   children,
