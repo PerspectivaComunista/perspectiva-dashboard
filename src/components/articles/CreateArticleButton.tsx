@@ -5,6 +5,8 @@ import { Modal, ModalContent, ModalHeader, ModalBody } from "@nextui-org/modal";
 import { Input, Select, SelectItem } from "@nextui-org/react";
 import PrimaryFormButton from "@/components/shared/PrimaryFormButton";
 import { toast } from "sonner";
+import dynamic from "next/dynamic";
+import "react-quill/dist/quill.snow.css";
 import {
   createArticlePostAction,
   getAuthors,
@@ -12,10 +14,12 @@ import {
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Author from "@/utils/types/author";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 export function CreateArticleButton() {
   const [authors, setAuthors] = useState<Author[]>([]);
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [writeText, setWriteText] = useState("");
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const router = useRouter();
 
@@ -51,6 +55,7 @@ export function CreateArticleButton() {
       await createArticlePostAction({
         data: formData,
         author: selectedAuthor,
+        writeText: writeText,
       });
       closeModal();
       setImageFile(null);
@@ -149,6 +154,12 @@ export function CreateArticleButton() {
                       )}
                     </button>
                   </div>
+
+                  <ReactQuill
+                    theme="snow"
+                    value={writeText}
+                    onChange={setWriteText}
+                  />
 
                   <PrimaryFormButton label="Creează" />
                 </form>

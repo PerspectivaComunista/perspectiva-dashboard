@@ -46,9 +46,11 @@ async function updateArticlePostAction({
 async function createArticlePostAction({
   data,
   author,
+  writeText,
 }: {
   data: FormData;
   author: string;
+  writeText: string;
 }) {
   const { getFirestore } = require("firebase-admin/firestore");
   const { getStorage } = require("firebase-admin/storage");
@@ -59,7 +61,6 @@ async function createArticlePostAction({
 
   const imageFile = data.get("image") as File;
   const title = data.get("title") as string;
-  const text = data.get("text") as string;
 
   let imageUrl = null;
 
@@ -75,7 +76,7 @@ async function createArticlePostAction({
     coverUrl: imageUrl ?? null,
     title,
     author,
-    text,
+    text: writeText,
     createdAt: new Date().toISOString(),
     slug: createSlug(title),
     id: docRef.id,
