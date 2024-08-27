@@ -32,7 +32,7 @@ export function CreateInstagramButton() {
       closeModal();
       setImageFile(null);
       router.refresh();
-      toast.success("Promoția a fost creată cu succes.");
+      toast.success("Postarea a fost creată cu succes.");
     } catch (e) {
       console.log(e);
       toast.error("Am întâmpinat o eroare. Te rugăm să încerci mai târziu.");

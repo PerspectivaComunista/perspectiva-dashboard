@@ -48,7 +48,7 @@ export function EditTiktokButton({ tiktok }: { tiktok: Post }) {
 
       setImageFile(null);
       router.refresh();
-      toast.success("Promoția a fost editată cu succes.");
+      toast.success("Postarea a fost editată cu succes.");
     } catch (e) {
       console.log(e);
       toast.error("Am întâmpinat o eroare. Te rugăm să încerci mai târziu.");

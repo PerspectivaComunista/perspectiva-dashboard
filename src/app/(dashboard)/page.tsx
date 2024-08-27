@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import InstagramsWidget from "@/components/dashboard/widgets/InstagramsWidget";
 import TiktokWidget from "@/components/dashboard/widgets/TiktokWidget";
 import YoutubeWidget from "@/components/dashboard/widgets/YoutubeWidget";
+import ArticlesWidget from "@/components/dashboard/widgets/ArticlesWidget";
 
 export default async function Page() {
   return (
@@ -15,6 +16,9 @@ export default async function Page() {
       </Suspense>
       <Suspense fallback={<DashboardCard isLoading />}>
         <YoutubeWidget />
+      </Suspense>
+      <Suspense fallback={<DashboardCard isLoading large />}>
+        <ArticlesWidget />
       </Suspense>
     </div>
   );

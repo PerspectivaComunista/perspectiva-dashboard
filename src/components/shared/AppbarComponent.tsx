@@ -12,6 +12,7 @@ import { CreateInstagramButton } from "../instagrams/CreateInstagramButton";
 // import { CreateUserButton } from "../users/CreateUserButton";
 import { CreateTiktokButton } from "../tiktok/CreateTiktokButton";
 import { CreateYoutubeButton } from "../youtube/CreateYoutubeButton";
+import { CreateArticleButton } from "../articles/CreateArticleButton";
 
 export default function AppbarComponent() {
   const breadcrumbs = useBreadcrumbs();
@@ -70,9 +71,9 @@ export default function AppbarComponent() {
           </div>
 
           <div className="col-span-8 hidden items-center justify-end gap-2 md:flex">
-            {/* {breadcrumbs.some((x) => x.path === "/users") && (
-              <CreateUserButton />
-            )} */}
+            {breadcrumbs.some((x) => x.path === "/articles") && (
+              <CreateArticleButton />
+            )}
             {breadcrumbs.some((x) => x.path === "/instagrams") && (
               <CreateInstagramButton />
             )}

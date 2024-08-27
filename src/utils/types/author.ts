@@ -3,3 +3,5 @@ type Author = {
   id: string;
   shortName: string;
 };
+
+export default Author;

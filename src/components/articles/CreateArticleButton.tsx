@@ -2,19 +2,44 @@
 import { Button } from "@nextui-org/button";
 import { useDisclosure } from "@nextui-org/use-disclosure";
 import { Modal, ModalContent, ModalHeader, ModalBody } from "@nextui-org/modal";
-import { Input } from "@nextui-org/react";
+import { Input, Select, SelectItem } from "@nextui-org/react";
 import PrimaryFormButton from "@/components/shared/PrimaryFormButton";
 import { toast } from "sonner";
-import { createTiktokAction } from "@/app/(dashboard)/tiktok/actions";
+import {
+  createArticlePostAction,
+  getAuthors,
+} from "@/app/(dashboard)/articles/actions";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import Author from "@/utils/types/author";
 
-export function CreateTiktokButton() {
+export function CreateArticleButton() {
+  const [authors, setAuthors] = useState<Author[]>([]);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const router = useRouter();
 
-  const createTiktok = async (formData: FormData, closeModal: () => void) => {
+  const [selectedAuthor, setSelectedAuthor] =
+    useState<string>("Selecteaza autor");
+
+  useEffect(() => {
+    const getAuthorsState = async () => {
+      const authorsList = await getAuthors();
+      setAuthors(authorsList);
+    };
+    getAuthorsState();
+  }, []);
+
+  const handleFidelityChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setSelectedAuthor(event.target.value);
+  };
+
+  const createArticlePost = async (
+    formData: FormData,
+    closeModal: () => void
+  ) => {
     if (!imageFile) {
       toast.error("Te rugam sa adaugi o imagine.");
       return;
@@ -23,13 +48,14 @@ export function CreateTiktokButton() {
     formData.append("image", imageFile);
 
     try {
-      await createTiktokAction({
+      await createArticlePostAction({
         data: formData,
+        author: selectedAuthor,
       });
       closeModal();
       setImageFile(null);
       router.refresh();
-      toast.success("Postarea a fost creată cu succes.");
+      toast.success("Articolul a fost creată cu succes.");
     } catch (e) {
       console.log(e);
       toast.error("Am întâmpinat o eroare. Te rugăm să încerci mai târziu.");
@@ -59,24 +85,37 @@ export function CreateTiktokButton() {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Creeaza o postare Tiktok
+                Creeaza un articol
               </ModalHeader>
               <ModalBody>
                 <form
-                  action={(event) => createTiktok(event, onClose)}
+                  action={(event) => createArticlePost(event, onClose)}
                   className="flex flex-col gap-4 mb-5 h-full w-full justify-center"
                 >
                   <Input
                     size="md"
                     radius="sm"
                     autoFocus
-                    name="url"
-                    label="Url-ul postarii"
-                    placeholder="https://www.tiktok.com/p/..."
+                    name="title"
+                    label="Title"
                     required
                     isRequired
                     type="text"
                   />
+
+                  <Select
+                    id="authorSelect"
+                    value={selectedAuthor}
+                    onChange={handleFidelityChange}
+                    label="Autor"
+                    required
+                  >
+                    {authors.map((author) => (
+                      <SelectItem key={author.id} value={author.fullName}>
+                        {author.fullName}
+                      </SelectItem>
+                    ))}
+                  </Select>
 
                   <div className="w-full">
                     <input
