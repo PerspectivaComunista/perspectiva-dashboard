@@ -66,8 +66,6 @@ export function CreateArticleButton() {
     }
   };
 
-  console.log(writeText);
-
   return (
     <>
       <Button

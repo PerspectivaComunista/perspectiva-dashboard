@@ -3,13 +3,13 @@ const { getAuth } = require("firebase-admin/auth");
 import { firebaseServerApp } from "@/lib/firebase/server";
 import DashboardTable from "@/components/dashboard/DashboardTable";
 import formatDate from "@/utils/functions/formatIsoString";
-import { EditArticleButton } from "@/components/articles/EditArticleButton";
 import { DeleteArticleButton } from "@/components/articles/DeleteArticleButton";
 import { cookies } from "next/headers";
 import { Metadata } from "next";
 import capitalizeString from "@/utils/functions/capitalizeString";
 import Article from "@/utils/types/article";
 import { getAuthors } from "./actions";
+// import { EditArticleButton } from "@/components/articles/EditArticleButton";
 
 export const revalidate = 0;
 
@@ -38,11 +38,11 @@ export default async function Page() {
     actions: (
       <div className="flex justify-end gap-2">
         {/* <EditArticleButton
-          id={article.id}
           author={article.author}
-          coverUrl={article.coverUrl}
-          text={article.text}
-          title={article.title}
+          coverUrl={article.author}
+          text={article.author}
+          title={article.author}
+          id={article.author}
         /> */}
         <DeleteArticleButton id={article.id} />
       </div>
