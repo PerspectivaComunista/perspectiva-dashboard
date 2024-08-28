@@ -11,7 +11,7 @@ import {
 } from "@nextui-org/modal";
 import PrimaryFormButton from "../shared/PrimaryFormButton";
 import { toast } from "sonner";
-import { deleteArticleAction } from "@/app/(dashboard)/articles/actions";
+import { deleteArticlePostAction } from "@/app/(dashboard)/articles/actions";
 import { useRouter } from "next/navigation";
 import { signOutAction } from "@/app/(authentication)/authentication/actions";
 import Article from "@/utils/types/article";
@@ -22,7 +22,7 @@ export function DeleteArticleButton({ id }: { id: string }) {
 
   const deleteArticle = async (closeModal: () => void) => {
     try {
-      await deleteArticleAction({ id: id });
+      await deleteArticlePostAction({ id: id });
       closeModal();
 
       router.refresh();

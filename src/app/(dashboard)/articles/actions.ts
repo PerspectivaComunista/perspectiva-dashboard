@@ -22,12 +22,10 @@ async function updateArticlePostAction({
   const url = data.get("url") as string;
   let imageUrl = data.get("imageUrl") as string | null;
 
-  const docRef = db.collection("article").doc();
+  const docRef = db.collection("articles").doc();
 
   if (imageFile) {
-    const bucket = storage.bucket(
-      "gs://perspectiva-7a032.appspot.com/articles"
-    );
+    const bucket = storage.bucket("gs://perspectiva-7a032.appspot.com");
     const downloadURL = await uploadFileToStorage(imageFile, bucket, docRef.id);
     imageUrl = downloadURL;
   }
@@ -57,7 +55,7 @@ async function createArticlePostAction({
   const { firebaseServerApp } = require("@/lib/firebase/server");
   const db = getFirestore(firebaseServerApp);
   const storage = getStorage(firebaseServerApp);
-  const docRef = db.collection("article").doc();
+  const docRef = db.collection("articles").doc();
 
   const imageFile = data.get("image") as File;
   const title = data.get("title") as string;
@@ -65,9 +63,7 @@ async function createArticlePostAction({
   let imageUrl = null;
 
   if (imageFile) {
-    const bucket = storage.bucket(
-      "gs://perspectiva-7a032.appspot.com/articles"
-    );
+    const bucket = storage.bucket("gs://perspectiva-7a032.appspot.com");
     const downloadURL = await uploadFileToStorage(imageFile, bucket, docRef.id);
     imageUrl = downloadURL;
   }
@@ -87,7 +83,7 @@ async function deleteArticlePostAction({ id }: { id: string }) {
   const { getFirestore } = require("firebase-admin/firestore");
   const { firebaseServerApp } = require("@/lib/firebase/server");
   const db = getFirestore(firebaseServerApp);
-  await db.collection("article").doc(id).delete();
+  await db.collection("articles").doc(id).delete();
 }
 
 const getAuthors = async (): Promise<Author[]> => {

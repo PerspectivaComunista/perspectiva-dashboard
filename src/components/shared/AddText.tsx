@@ -9,10 +9,20 @@ export default function AddText({
   setWriteText: (value: string) => void;
 }) {
   const handleTextChange = (text: string) => {
-    const footnoteRegex = /\[\[\s*footnote\s*\]\]/g;
+    // Inlocuire pentru [[ numbernote ]]
+    const footnoteRegex = /\[\[\s*numbernote\s*\]\]/g;
     let counter = 1;
-    const newText = text.replace(footnoteRegex, () => {
+    let newText = text.replace(footnoteRegex, () => {
       const replacement = `<a href="#sup${counter}"><sup>${counter}</sup></a>`;
+      counter += 1;
+      return replacement;
+    });
+
+    // Inlocuire pentru [[footnote: {text}]]
+    const detailedFootnoteRegex = /\[\[\s*footnote:\s*(.*?)\s*\]\]/g;
+    counter = 1;
+    newText = newText.replace(detailedFootnoteRegex, (match, p1) => {
+      const replacement = `<p id="sup${counter}"><sup>${counter}</sup>${p1}</p>`;
       counter += 1;
       return replacement;
     });
