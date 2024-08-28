@@ -5,8 +5,7 @@ import { Modal, ModalContent, ModalHeader, ModalBody } from "@nextui-org/modal";
 import { Input, Select, SelectItem } from "@nextui-org/react";
 import PrimaryFormButton from "@/components/shared/PrimaryFormButton";
 import { toast } from "sonner";
-import dynamic from "next/dynamic";
-import "react-quill/dist/quill.snow.css";
+
 import {
   createArticlePostAction,
   getAuthors,
@@ -14,7 +13,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Author from "@/utils/types/author";
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+import AddText from "../shared/AddText";
 
 export function CreateArticleButton() {
   const [authors, setAuthors] = useState<Author[]>([]);
@@ -66,6 +65,8 @@ export function CreateArticleButton() {
       toast.error("Am întâmpinat o eroare. Te rugăm să încerci mai târziu.");
     }
   };
+
+  console.log(writeText);
 
   return (
     <>
@@ -155,11 +156,7 @@ export function CreateArticleButton() {
                     </button>
                   </div>
 
-                  <ReactQuill
-                    theme="snow"
-                    value={writeText}
-                    onChange={setWriteText}
-                  />
+                  <AddText setWriteText={setWriteText} />
 
                   <PrimaryFormButton label="Creează" />
                 </form>
