@@ -78,7 +78,7 @@ export function CreateArticleButton() {
         Creeaza
       </Button>
       <Modal
-        placement="top-center"
+        placement="top"
         size="3xl"
         closeButton={null}
         className="p-5"
@@ -154,7 +154,9 @@ export function CreateArticleButton() {
                     </button>
                   </div>
 
-                  <AddText setWriteText={setWriteText} />
+                  <p>Continutul articolului:</p>
+
+                  <AddText setWriteText={setWriteText} writeText={writeText} />
 
                   <PrimaryFormButton label="Creează" />
                 </form>

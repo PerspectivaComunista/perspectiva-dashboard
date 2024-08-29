@@ -5,8 +5,10 @@ const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 export default function AddText({
   setWriteText,
+  writeText,
 }: {
   setWriteText: (value: string) => void;
+  writeText: string;
 }) {
   const handleTextChange = (text: string) => {
     // Inlocuire pentru [[ numbernote ]]
@@ -30,5 +32,7 @@ export default function AddText({
     setWriteText(newText);
   };
 
-  return <ReactQuill theme="snow" onChange={handleTextChange} />;
+  return (
+    <ReactQuill theme="snow" value={writeText} onChange={handleTextChange} />
+  );
 }

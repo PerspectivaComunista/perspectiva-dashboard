@@ -7,37 +7,40 @@ import Author from "@/utils/types/author";
 async function updateArticlePostAction({
   data,
   id,
-  createdAt,
+  writeText,
+  author,
 }: {
   data: FormData;
   id: string;
-  createdAt: string;
+  writeText: string;
+  author: string;
 }) {
   const { firebaseServerApp } = require("@/lib/firebase/server");
   const { getFirestore } = require("firebase-admin/firestore");
   const { getStorage } = require("firebase-admin/storage");
   const db = getFirestore(firebaseServerApp);
   const storage = getStorage(firebaseServerApp);
-  const imageFile = data.get("image") as File;
-  const url = data.get("url") as string;
-  let imageUrl = data.get("imageUrl") as string | null;
 
-  const docRef = db.collection("articles").doc();
+  const imageFile = data.get("image") as File;
+  const docRef = db.collection("offers").doc();
+  let photoUrl = data.get("photoUrl") as string | null;
+  const title = data.get("title") as string;
 
   if (imageFile) {
-    const bucket = storage.bucket("gs://perspectiva-7a032.appspot.com");
+    const bucket = storage.bucket("gs://ro-wolfdigitalmedia-byzuu.appspot.com");
     const downloadURL = await uploadFileToStorage(imageFile, bucket, docRef.id);
-    imageUrl = downloadURL;
+    photoUrl = downloadURL;
   }
 
   await db
-    .collection("article")
+    .collection("locations")
     .doc(id)
     .update({
-      createdAt,
-      id,
-      imageUrl: imageUrl ?? null,
-      url: url ?? null,
+      coverUrl: photoUrl ?? null,
+      title,
+      author,
+      text: writeText,
+      slug: createSlug(title),
     });
 }
 
