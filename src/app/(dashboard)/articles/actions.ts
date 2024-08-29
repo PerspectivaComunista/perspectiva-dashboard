@@ -20,23 +20,23 @@ async function updateArticlePostAction({
   const { getStorage } = require("firebase-admin/storage");
   const db = getFirestore(firebaseServerApp);
   const storage = getStorage(firebaseServerApp);
+  const docRef = db.collection("articles").doc();
 
   const imageFile = data.get("image") as File;
-  const docRef = db.collection("offers").doc();
-  let photoUrl = data.get("photoUrl") as string | null;
+  let coverUrl = data.get("coverUrl") as string | null;
   const title = data.get("title") as string;
 
   if (imageFile) {
     const bucket = storage.bucket("gs://ro-wolfdigitalmedia-byzuu.appspot.com");
     const downloadURL = await uploadFileToStorage(imageFile, bucket, docRef.id);
-    photoUrl = downloadURL;
+    coverUrl = downloadURL;
   }
 
   await db
-    .collection("locations")
+    .collection("articles")
     .doc(id)
     .update({
-      coverUrl: photoUrl ?? null,
+      coverUrl: coverUrl ?? null,
       title,
       author,
       text: writeText,
